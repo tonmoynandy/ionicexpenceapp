@@ -30,7 +30,9 @@ export class SigninPage {
   }
   logForm()
   {
-  	this.auth.login(this.logData.value).subscribe(response  => {
+  	this.auth.login(this.logData.value)
+
+  	.subscribe(response  => {
   		let responseData = response;
   		if (responseData['status'] == 0){
 	  		const alert = this.alertCtrl.create({

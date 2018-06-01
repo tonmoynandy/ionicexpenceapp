@@ -28,6 +28,7 @@ export class AuthProvider {
 
   login(postData)
   {
+
   	return this.http.post(this.API_URL+'/'+this.APPLICATION_NAME+'/auth/signin', JSON.stringify(postData), this.httpOptions);
   }
 
