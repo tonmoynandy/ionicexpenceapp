@@ -1,0 +1,12 @@
+ion-fab-list{
+	top : -18px;
+}
+ion-fab-list[side=top] {
+    top: -120px;
+}
+ion-fab-list[side=bottom] {
+    top: -43px;
+}
+ion-fab-list[side=right] {
+    margin: 0 30px;
+}

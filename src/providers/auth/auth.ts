@@ -1,35 +1,21 @@
 import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {Global} from '../../app/global.config';
 
-/*
-  Generated class for the AuthProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthProvider {
-	APPLICATION_NAME =  'expense';
-	API_URL = 'https://apibinssoft.herokuapp.com';
-	//API_URL = 'http://localhost:8080';
-
 	httpOptions = {};
-  constructor(public http: HttpClient) {
-    this.httpOptions = {
-	  headers: new HttpHeaders({
-	  	'Access-Control-Allow-Origin' : "*",
-	  	"Access-Control-Allow-Credentials": "true",
-	  	"Access-Control-Allow-Methods" : "GET,HEAD,OPTIONS,POST,PUT",
-	  	"Access-Control-Allow-Headers": "access-control-allow-credentials,access-control-allow-headers,access-control-allow-methods,access-control-allow-origin,content-type",
-	    'Content-Type':  'application/json'
-	  })
+	constructor(public http: HttpClient, public global : Global) {
+	this.httpOptions = {
+	  headers: new HttpHeaders(this.global.HTTP_HEADER)
 	};
-  }
+	}
 
-  login(postData)
-  {
-
-  	return this.http.post(this.API_URL+'/'+this.APPLICATION_NAME+'/auth/signin', JSON.stringify(postData), this.httpOptions);
-  }
-
+	login(postData)
+	{
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/auth/signin', JSON.stringify(postData), this.httpOptions);
+	}
+	signupPost(postData:any) {
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/auth/signup', JSON.stringify(postData), this.httpOptions)
+	}
 }

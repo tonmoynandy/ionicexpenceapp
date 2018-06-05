@@ -14,5 +14,17 @@
 
 
 <ion-content padding>
-
+	<ion-card *ngFor="let i of groups; let index = index">
+	  <ion-item>
+	  	<div style="float:left">
+		    <h4>{{ i.name }}</h4>
+			<p>Total : &#8377; {{ i.amount }}</p>
+			<p *ngIf="i.date">Start :  {{ i.date | date }}</p>
+		</div>
+		<button ion-button icon-right style="float: right" (click)="goToDetails(i.id)">
+		  Go Center
+		  <ion-icon name="ios-arrow-forward-outline"></ion-icon>
+		</button>
+	  </ion-item>
+	</ion-card>
 </ion-content>

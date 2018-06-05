@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import {SigninPage} from "../signin/signin";
 import {SignupPage} from "../signup/signup";
 
@@ -10,7 +10,7 @@ import {SignupPage} from "../signup/signup";
 export class HomePage {
 
 	constructor(public navCtrl: NavController) {
-
+		
 	}
 	onLoadSignIn()
 	{
@@ -20,14 +20,5 @@ export class HomePage {
 	{
 		this.navCtrl.push(SignupPage)
 	}
-	/*onLoadSignin()
-	{
-		//alert('signin');
-		this.navCtrl.push('SigninPage');
-	}
-	ongoToSignUp()
-	{
-		alert('signup');
-		//this.navCtrl.push('SignupPage')
-	}*/
+	
 }

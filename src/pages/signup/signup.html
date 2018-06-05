@@ -7,12 +7,40 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>signup</ion-title>
+    <ion-title>Signup</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+	<ion-card>
+	  <ion-card-content>
+	  <form [formGroup]="signUpData" (ngSubmit)="signFormPost()">
+	    <ion-list>
 
+		  <ion-item>
+		    <ion-label floating>Phone No</ion-label>
+		    <ion-input type="number" formControlName="phoneno"></ion-input>
+		  </ion-item>
+		 
+		</ion-list>
+		<ion-list>
+
+		  <ion-item>
+		    <ion-label floating>Name</ion-label>
+		    <ion-input type="text" formControlName="name"></ion-input>
+		  </ion-item>
+		 
+		</ion-list>
+		<ion-list>
+		  <ion-item>
+		    <ion-label floating>Password</ion-label>
+		    <ion-input type="password" formControlName="password"></ion-input></ion-item>
+		  
+		</ion-list>
+		<button ion-button full type="submit" [disabled]="signUpData.invalid">SignUp</button>
+		</form>
+	  </ion-card-content>
+	</ion-card>
 </ion-content>

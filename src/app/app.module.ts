@@ -9,14 +9,18 @@ import { HomePage } from '../pages/home/home';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { GroupdetailsPage } from '../pages/groupdetails/groupdetails';
 import { AuthProvider } from '../providers/auth/auth';
+import { GeneralProvider } from '../providers/general/general';
+import {Global} from './global.config';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     SigninPage,
     SignupPage,
-    DashboardPage
+    DashboardPage,
+    GroupdetailsPage,
   ],
   imports: [
     BrowserModule,
@@ -29,13 +33,17 @@ import { AuthProvider } from '../providers/auth/auth';
     HomePage,
     SigninPage,
     SignupPage,
-    DashboardPage
+    DashboardPage,
+    GroupdetailsPage
   ],
   providers: [
+    Global,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    GeneralProvider,
   ]
+
 })
 export class AppModule {}

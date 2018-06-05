@@ -1,0 +1,85 @@
+<!--
+  Generated template for the GroupdetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{groupDetails['name']}}</ion-title>
+    <ion-icon name="more"></ion-icon>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card>
+	  <ion-card-content>
+	   		<table class="table" cellspacing="0">
+				<tr>
+					<td *ngIf="createdUser">
+						<strong>Created By :</strong> <label>{{ createdUser['name'] }}</label>
+					</td>
+					<td *ngIf="adminUser">
+						<strong>Admin User :</strong> <label>{{ adminUser['name'] }}</label>
+					</td>
+				</tr>
+				<tr>
+					<td *ngIf="groupDetails['startdate']">
+						<strong>Started On :</strong> <label>{{ groupDetails['startdate'] | date }}</label>
+					</td>
+					<td *ngIf="groupDetails['createdOn']">
+						<strong>Created On :</strong> <label>{{ groupDetails['createdOn'] | date }}</label>
+					</td>
+				</tr>
+				<tr>
+					<td *ngIf="groupDetails['totalAmount']">
+						<strong>Total :</strong> <label>&#8377; {{ groupDetails['totalAmount'] | number }}</label>
+					</td>
+					<td align="center">
+						<a href="#/expensehistory?id={{ groupDetails['id'] }}" mat-button><strong>&#10093;</strong></a>
+					</td>
+				</tr>
+				
+			</table>
+	  </ion-card-content>
+
+	</ion-card>
+
+	<ion-card>
+
+	  <ion-card-content>
+	    <table class="table" cellspacing="0">
+			<tr *ngFor="let i of groupDetails.members; let index = index"  >
+				<td style="width:50%">
+				<ion-fab  >
+					<span class="name-icon {{ i.name | slice : 0 :1  }}-icon" ion-fab mini>{{ i.name | slice : 0 :1  }}</span>
+				    <ion-fab-list side="top" >
+				      <button ion-fab class="red-text"><ion-icon name="trash"></ion-icon></button>
+				    </ion-fab-list>
+				    <ion-fab-list side="right" >
+				      <button ion-fab class="green-text"><ion-icon name="cash"></ion-icon></button>
+				    </ion-fab-list>
+				    <ion-fab-list side="bottom" >
+				      <button ion-fab class="blue-text"><ion-icon name="cash"></ion-icon></button>
+				    </ion-fab-list>
+				  </ion-fab>
+				  </td>
+			
+				<td>
+					<div class="text-bold">{{ i.name }} <span class="admin-span" *ngIf="i.admin==1">admin</span></div>
+					<div><label>Deposit : </label> &#8377; {{ i.deposit  }}</div>
+					<div><label>Pay : </label> &#8377; {{ i.paidBy }}</div>
+					<div><label>Pay Share: </label> &#8377; {{ i.paidFor }}</div>
+					<div><label>Balance : </label><span [ngClass]="{ 'red-text':i.balance < 0 ,'green-text': i.balance > 0 }">&#8377; {{ i.balance  }}</span></div>
+				</td>
+				
+			</tr>
+		</table>
+	  </ion-card-content>
+
+	</ion-card>
+</ion-content>
+
