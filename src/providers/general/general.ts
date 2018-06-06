@@ -28,4 +28,39 @@ export class GeneralProvider {
 		
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/groups-details', JSON.stringify(postData), this.httpOptions)		
 	}
+
+	saveDeposit(postData)
+	{
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/member-deposit-edit', JSON.stringify(postData), this.httpOptions)		
+	}
+
+	deleteGroupUser(groupId, userId)
+	{
+		let postData = {
+			userId : userId,
+			groupId : groupId
+		}		
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/delete-group-user', JSON.stringify(postData), this.httpOptions)			
+	}
+
+	savePay(postData)
+	{
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/save-pay', JSON.stringify(postData), this.httpOptions);
+	}
+
+	getGroupExpenseHistory(id) 
+	{
+		let postData = {
+			id : id
+		}		
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/group-expense-history', JSON.stringify(postData), this.httpOptions)		
+	}
+
+	deleteGroupExpense(id) 
+	{
+		let postData = {
+			id : id
+		}		
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/delete-group-expense', JSON.stringify(postData), this.httpOptions)		
+	}
 }

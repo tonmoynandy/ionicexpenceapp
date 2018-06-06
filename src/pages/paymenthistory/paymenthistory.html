@@ -1,0 +1,46 @@
+<!--
+  Generated template for the PaymenthistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title class="full-width">{{ groupDetails['name'] }} <span class="right-float">Total : &#8377; {{ groupDetails['totalAmount']|number }}</span></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card *ngFor="let exp of expenseList" >
+	  
+	  		<ion-card-header>
+	  		
+				<div class="right-float" *ngIf="authUser && adminUser && ( (authUser['id'] == adminUser['id']) || (authUser['id'] == exp['paidBy']) )">
+				<ion-icon name="more" (click)="menuId=exp['id']"></ion-icon>
+				<div class="table-menu" *ngIf="menuId==exp['id']">
+				  
+				  <a  (click)="editExpense(exp)">Edit</a>
+				  <a  (click)="deleteExpense(exp['id'])">Delete</a>
+				</div>
+				</div>
+				<div class="left-float" (click)="menuId=''" style="margin-top: 6px;"><strong>{{ exp['description'] }}</strong></div>
+				<div class="clearfix"></div>
+			</ion-card-header>
+			<ion-card-content (click)="menuId=''">
+			<p><strong>Category : </strong>{{ exp['type'] }}</p>
+			<p><strong>Paid By : </strong> {{ exp['paidUser'] }}</p>
+			<p><strong>Added By : </strong> {{ exp['addedBy'] }}</p>
+			
+			<p><strong>Amount :</strong> &#8377; {{ exp['amount'] }}</p>
+			<p><strong>Date : </strong>{{ exp['payDate']| date }}</p>
+			<p><strong>Share With : </strong>
+				<span *ngFor="let u of exp['sharewith']">
+					{{ u['name'] }}
+				</span>
+			</p>
+	  </ion-card-content>
+	</ion-card>
+</ion-content>

@@ -10,6 +10,8 @@ import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { GroupdetailsPage } from '../pages/groupdetails/groupdetails';
+import { PaymentPage } from '../pages/payment/payment';
+import { PaymenthistoryPage } from '../pages/paymenthistory/paymenthistory';
 import { AuthProvider } from '../providers/auth/auth';
 import { GeneralProvider } from '../providers/general/general';
 import {Global} from './global.config';
@@ -21,6 +23,8 @@ import {Global} from './global.config';
     SignupPage,
     DashboardPage,
     GroupdetailsPage,
+    PaymentPage,
+    PaymenthistoryPage,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import {Global} from './global.config';
     SigninPage,
     SignupPage,
     DashboardPage,
-    GroupdetailsPage
+    GroupdetailsPage,
+    PaymentPage,
+    PaymenthistoryPage
   ],
   providers: [
     Global,

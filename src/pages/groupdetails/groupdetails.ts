@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import {GeneralProvider} from '../../providers/general/general';
 import {Global} from "../../app/global.config";
-
+import {PaymentPage} from '../payment/payment'
+import { PaymenthistoryPage } from '../paymenthistory/paymenthistory';
 @IonicPage()
 @Component({
   selector: 'page-groupdetails',
@@ -16,9 +17,17 @@ export class GroupdetailsPage {
 	};
 	adminUser : any = {};
 	createdUser : any = {};
-	constructor(public navCtrl: NavController, public navParams: NavParams, public global:Global, public general : GeneralProvider) {
+	constructor(public navCtrl: NavController, 
+				public navParams: NavParams, 
+				public global:Global, 
+				public general : GeneralProvider, 
+				public alert : AlertController) {
 		this.groupId = this.navParams.get('groupid');
-
+		this.getGroupDetails();
+		
+	}
+	getGroupDetails()
+	{
 		let loder  = this.global.openLoader();
 		this.general.getGroupDetails(this.groupId)
 		.subscribe(data=>{
@@ -32,7 +41,94 @@ export class GroupdetailsPage {
 	  		})
 		})
 	}
+	openDeposit(memberId)
+	{
+		let member = this.groupDetails['members'].find((m)=>{
+			return m.id == memberId;
+		})
+		let alert = this.alert.create({
+	    title: 'Deposit',
+	    inputs: [
+	      {
+	        name: 'deposit_amount',
+	        placeholder: 'Amount',
+	        value : member['deposit']
+	      },
+	    ],
+	    buttons: [
+	      {
+	        text: 'Cancel',
+	        role: 'cancel',
+	        handler: data => {
+	          console.log('Cancel clicked');
+	        }
+	      },
+	      {
+	        text: 'Save',
+	        handler: data => {
+	          let postData = {
+					memberId : member['id'],
+					admin : {id : this.adminUser['id'], name : this.adminUser['name']},
+					groupId : this.groupDetails['id'],
+					deposit : { 
+						old : parseInt(member['deposit']),
+						new : parseInt(data.deposit_amount)
+					}
+				};
+				this.general.saveDeposit(postData).subscribe(response=>{
+					this.getGroupDetails();
+				})
+	        }
+	      }
+	    ]
+	  });
+	  alert.present();
+	}
 
+	deleteGroupUser(memberId)
+	{
+		let member = this.groupDetails['members'].find((m)=>{
+			return m.id == memberId;
+		})
+		let alert = this.alert.create({
+		    title: 'Delete !',
+		    message: 'Are you sure to remove '+member['name']+' from the group?',
+		    buttons: [
+		      {
+		        text: 'No',
+		        role: 'cancel',
+		        handler: () => {
+		          
+		        }
+		      },
+		      {
+		        text: 'Yes',
+		        handler: () => {
+		          this.general.deleteGroupUser(this.groupId, memberId).subscribe((response)=>{
+						if (response['status'] == true) {
+							this.getGroupDetails();
+						}
+					})
+		        }
+		      }
+		    ]
+		  });
+		  alert.present();
+	}
+
+	openPay(memberId)
+	{
+		this.global.setExpenseDetails(null);
+		this.navCtrl.push(PaymentPage,{
+			groupId : this.groupId,
+			memberId : memberId,
+		})
+	}
+
+	goToDetails(groupId)
+	{
+		this.navCtrl.push(PaymenthistoryPage,{"groupid":groupId});
+	}
 	ionViewDidLoad() {
 		
 	}
