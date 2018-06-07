@@ -63,4 +63,8 @@ export class GeneralProvider {
 		}		
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/delete-group-expense', JSON.stringify(postData), this.httpOptions)		
 	}
+
+	searchUser(term : string) {
+		return this.http.get(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/search-user?term='+term)
+	}
 }

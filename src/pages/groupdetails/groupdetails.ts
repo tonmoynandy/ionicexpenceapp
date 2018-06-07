@@ -4,6 +4,7 @@ import {GeneralProvider} from '../../providers/general/general';
 import {Global} from "../../app/global.config";
 import {PaymentPage} from '../payment/payment'
 import { PaymenthistoryPage } from '../paymenthistory/paymenthistory';
+import { AddmemberPage } from '../addmember/addmember';
 @IonicPage()
 @Component({
   selector: 'page-groupdetails',
@@ -17,6 +18,7 @@ export class GroupdetailsPage {
 	};
 	adminUser : any = {};
 	createdUser : any = {};
+
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
 				public global:Global, 
@@ -132,5 +134,18 @@ export class GroupdetailsPage {
 	ionViewDidLoad() {
 		
 	}
+	menu : boolean = false;
+	menuToggle()
+	{
+		if (this.menu == true) {
+			this.menu = false;
+		} else {
+			this.menu = true;
+		}
+	}
 
+	openAddMemberModal()
+	{
+		this.navCtrl.push(AddmemberPage,{'groupid':this.groupId});
+	}
 }

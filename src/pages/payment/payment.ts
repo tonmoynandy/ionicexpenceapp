@@ -90,7 +90,7 @@ export class PaymentPage {
 		  			}
 		  		}
 		  		this.paymentFrm.controls['shareMembers'].setValue(shareMemberList);
-			}
+			} 
 		})
 	}
 	payFormPost()

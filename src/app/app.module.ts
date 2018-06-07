@@ -12,6 +12,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { GroupdetailsPage } from '../pages/groupdetails/groupdetails';
 import { PaymentPage } from '../pages/payment/payment';
 import { PaymenthistoryPage } from '../pages/paymenthistory/paymenthistory';
+import { AddmemberPage } from '../pages/addmember/addmember';
 import { AuthProvider } from '../providers/auth/auth';
 import { GeneralProvider } from '../providers/general/general';
 import {Global} from './global.config';
@@ -25,6 +26,7 @@ import {Global} from './global.config';
     GroupdetailsPage,
     PaymentPage,
     PaymenthistoryPage,
+    AddmemberPage,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import {Global} from './global.config';
     DashboardPage,
     GroupdetailsPage,
     PaymentPage,
-    PaymenthistoryPage
+    PaymenthistoryPage,
+    AddmemberPage
   ],
   providers: [
     Global,

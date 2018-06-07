@@ -126,3 +126,28 @@ span.name-icon.Z-icon { background: #b53f4a }
     font-size: 12px;
     border-radius: 0 0 3px 3px;
 }
+.auto-search-panel{
+    position: absolute;
+    z-index:999;
+    width:100%;
+    height: 130px;
+    overflow-y: scroll;
+}
+.auto-search-panel ul {
+    list-style: none;
+    width:100%;
+    padding:0;
+    margin:0;
+}
+.auto-search-panel ul li{
+    padding :15px 10px;
+    border-bottom:1px solid #CCC;
+    display:block;
+}
+.auto-search-panel ul li:last-of-type{
+    border:none;
+}
+.auto-search-panel ul li:focus{
+    background:#ececec;
+
+}

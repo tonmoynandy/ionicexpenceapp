@@ -10,7 +10,7 @@
     <ion-title>
     	<div class="left-float">{{groupDetails['name']}}</div>
     	<div class="right-float">
-    		
+    		<ion-icon ios="ios-more" md="md-more" (click)="menuToggle()"></ion-icon>
     	</div>
     </ion-title>
     
@@ -20,6 +20,17 @@
 
 
 <ion-content padding>
+	<ion-card *ngIf="menu==true">
+	  <ion-card-content>
+	  	<table class="table">
+	  		<tr>
+			  	<td class="text-center"><button ion-button  icon-only round (click)="openAddMemberModal()"> <ion-icon ios="ios-person-add" md="md-person-add"></ion-icon></button></td>
+			  	<td class="text-center"><button ion-button color="dark"  icon-only round><ion-icon ios="ios-pulse" md="md-pulse"></ion-icon></button></td>
+			  	<td class="text-center"><button ion-button color="danger"  icon-only round><ion-icon ios="ios-trash" md="md-trash"></ion-icon></button></td>
+		  	</tr>
+	  	</table>
+	  </ion-card-content>
+	 </ion-card>
 	<ion-card>
 	  <ion-card-content>
 	   		<table class="table" cellspacing="0">
