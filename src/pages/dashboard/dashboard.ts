@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import {GeneralProvider} from '../../providers/general/general';
 import { GroupdetailsPage } from '../groupdetails/groupdetails';
+import { ChangepasswordPage } from '../changepassword/changepassword';
+import { CreategroupPage } from '../creategroup/creategroup';
+import { HomePage } from '../home/home';
 import {Global} from "../../app/global.config";
 /**
  * Generated class for the DashboardPage page.
@@ -21,12 +24,18 @@ export class DashboardPage {
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		public loader : LoadingController,
+		public menu : MenuController,
 		public general : GeneralProvider,
 		public global : Global,
 		) {
 	}
+	authuser : any = {};
 	groups : any = [];
 	ionViewDidLoad() {
+		if (Object.keys(this.global.loggedUser).length == 0 ) {
+			this.navCtrl.push(HomePage);
+		}
+		this.authuser = this.global.loggedUser;
 		let loader = this.global.openLoader();
 		this.general.getUserGroups()
 		.subscribe(response => {
@@ -38,5 +47,22 @@ export class DashboardPage {
 	goToDetails(id)
 	{
 		this.navCtrl.push(GroupdetailsPage, {"groupid":id});
+	}
+	openMenu() {
+	   this.menu.open();
+	}
+
+	goToCreateGroup()
+	{
+		this.navCtrl.push(CreategroupPage);
+	}
+	goToChangePassword()
+	{
+		this.navCtrl.push(ChangepasswordPage);
+	}
+	goToLogout()
+	{
+		this.global.setLoggedUser({});
+		this.navCtrl.push(HomePage);
 	}
 }

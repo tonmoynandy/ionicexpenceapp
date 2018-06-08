@@ -5,6 +5,8 @@ import {Global} from "../../app/global.config";
 import {PaymentPage} from '../payment/payment'
 import { PaymenthistoryPage } from '../paymenthistory/paymenthistory';
 import { AddmemberPage } from '../addmember/addmember';
+import { DashboardPage } from '../dashboard/dashboard';
+import { StatisticsPage } from '../statistics/statistics';
 @IonicPage()
 @Component({
   selector: 'page-groupdetails',
@@ -18,14 +20,15 @@ export class GroupdetailsPage {
 	};
 	adminUser : any = {};
 	createdUser : any = {};
-
+	authUser : any = {};
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
 				public global:Global, 
 				public general : GeneralProvider, 
 				public alert : AlertController) {
 		this.groupId = this.navParams.get('groupid');
-		this.getGroupDetails();
+		this.authUser = this.global.loggedUser;
+		
 		
 	}
 	getGroupDetails()
@@ -132,7 +135,7 @@ export class GroupdetailsPage {
 		this.navCtrl.push(PaymenthistoryPage,{"groupid":groupId});
 	}
 	ionViewDidLoad() {
-		
+		this.getGroupDetails();
 	}
 	menu : boolean = false;
 	menuToggle()
@@ -147,5 +150,40 @@ export class GroupdetailsPage {
 	openAddMemberModal()
 	{
 		this.navCtrl.push(AddmemberPage,{'groupid':this.groupId});
+	}
+
+	deleteGroup()
+	{
+
+		let alert = this.alert.create({
+		    title: 'Delete !',
+		    message: 'Are you sure to delete '+this.groupDetails['name']+'?',
+		    buttons: [
+		      {
+		        text: 'No',
+		        role: 'cancel',
+		        handler: () => {
+		          
+		        }
+		      },
+		      {
+		        text: 'Yes',
+		        handler: () => {
+		          this.general.deleteGroup(this.groupId).subscribe((response)=>{
+						if (response['status'] == true) {
+							this.navCtrl.push(DashboardPage);
+						}
+					})
+		        }
+		      }
+		    ]
+		  });
+		  alert.present();
+		
+	}
+
+	goToStatistics()
+	{
+		this.navCtrl.push(StatisticsPage,{'groupid': this.groupId});
 	}
 }

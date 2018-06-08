@@ -1,0 +1,64 @@
+<!--
+  Generated template for the StatisticsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Statistics</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-card >
+
+  <ion-card-header>
+    Category
+  </ion-card-header>
+
+  <ion-card-content>
+    	<table class="table">
+    		<tr *ngFor="let row of statistics.category">
+    			<td>{{ row._id }}</td>
+    			<td>&#8377; {{ row.total|number }}</td>
+    		</tr>
+    	</table>
+  </ion-card-content>
+</ion-card>
+
+<ion-card >
+
+  <ion-card-header>
+    Users
+  </ion-card-header>
+
+  <ion-card-content>
+    	<table class="table">
+    		<tr *ngFor="let row of statistics.paidBy">
+    			<td>{{ row.name }}</td>
+    			<td>&#8377; {{ row.total|number }}</td>
+    		</tr>
+    	</table>
+  </ion-card-content>
+</ion-card>
+
+<ion-card >
+
+  <ion-card-header>
+    Month
+  </ion-card-header>
+
+  <ion-card-content>
+    	<table class="table">
+    		<tr *ngFor="let row of statistics.date">
+    			<td>{{ row['_id']['month']+'-01-'+row['_id']['year'] | date : "MMMM, yyyy"}}</td>
+					<td>&#8377; {{ row['total']| number }}</td>
+    		</tr>
+    	</table>
+  </ion-card-content>
+</ion-card>
+</ion-content>

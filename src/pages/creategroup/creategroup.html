@@ -1,0 +1,47 @@
+<!--
+  Generated template for the CreategroupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create Group</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-list>
+	  <ion-item>
+	    	<ion-label floating>Name</ion-label>
+		 	<ion-input type="text" [(ngModel)]="group.name"></ion-input>
+	  </ion-item>
+	</ion-list>	
+	<ion-list>
+	  <ion-item>
+	    	<ion-label floating>Start Date</ion-label>
+		 	<ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="group.startdate"></ion-datetime>
+	  </ion-item>
+	</ion-list>
+	<ion-list>
+	  <ion-item>
+	  	<h4>
+	  		<span class="left-float"> Group members</span>
+	  		<span class="right-float">
+	  				<ion-icon ios="ios-add" md="md-add" (click)="openAddMember()"></ion-icon>
+	  		</span>
+	  	</h4>
+	  	<table class="table">
+			<tr *ngFor="let m of group.members, let index = index">
+				<td><span class="name-icon {{ m.name | slice : 0 :1  }}-icon" ion-fab mini>{{ m.name | slice : 0 :1  }}</span></td>
+				<td>{{ m.name }} <ion-badge item-end *ngIf="m.admin==1">admin</ion-badge></td>
+				<td><ion-icon ios="ios-trash" md="md-trash" *ngIf="m.admin!=1" (click)="removeItem(index)"></ion-icon></td>
+			</tr>
+		</table>	
+	</ion-item>
+	</ion-list>
+	<button ion-button full type="button" [disabled]="group.name=='' || group.members.length == 0 " (click)="saveGroup()">Create</button>
+</ion-content>

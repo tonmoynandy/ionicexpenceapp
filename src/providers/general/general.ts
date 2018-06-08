@@ -67,4 +67,28 @@ export class GeneralProvider {
 	searchUser(term : string) {
 		return this.http.get(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/search-user?term='+term)
 	}
+
+	addGroupMember(postData)
+	{
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/add-group-member', JSON.stringify(postData), this.httpOptions)			
+	}
+
+	deleteGroup(id)
+	{
+		let postData = {
+			id : id
+		}		
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/delete-group', JSON.stringify(postData), this.httpOptions)		
+	}
+	getStatistics(id) {
+		let postdata ={
+			id : id
+		};
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/group-statistics',JSON.stringify(postdata), this.httpOptions);
+	}
+
+	createGroup(postData: object)
+	{
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/create-group', JSON.stringify(postData), this.httpOptions)
+	}
 }

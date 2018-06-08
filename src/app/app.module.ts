@@ -13,6 +13,10 @@ import { GroupdetailsPage } from '../pages/groupdetails/groupdetails';
 import { PaymentPage } from '../pages/payment/payment';
 import { PaymenthistoryPage } from '../pages/paymenthistory/paymenthistory';
 import { AddmemberPage } from '../pages/addmember/addmember';
+import { StatisticsPage } from '../pages/statistics/statistics';
+import { CreategroupPage } from '../pages/creategroup/creategroup';
+import {CreategroupmemberComponent} from '../components/creategroupmember/creategroupmember';
+import { ChangepasswordPage } from '../pages/changepassword/changepassword';
 import { AuthProvider } from '../providers/auth/auth';
 import { GeneralProvider } from '../providers/general/general';
 import {Global} from './global.config';
@@ -27,6 +31,10 @@ import {Global} from './global.config';
     PaymentPage,
     PaymenthistoryPage,
     AddmemberPage,
+    StatisticsPage,
+    CreategroupPage,
+    CreategroupmemberComponent,
+    ChangepasswordPage
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,11 @@ import {Global} from './global.config';
     GroupdetailsPage,
     PaymentPage,
     PaymenthistoryPage,
-    AddmemberPage
+    AddmemberPage,
+    StatisticsPage,
+    CreategroupPage,
+    CreategroupmemberComponent,
+    ChangepasswordPage
   ],
   providers: [
     Global,

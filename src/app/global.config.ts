@@ -18,7 +18,7 @@ export class Global
 	    ) { 
 		this.getLoggedUser();
 	}
-	loggedUser : any ;
+	loggedUser : any = {};
 	getLoggedUser()  {
 		/*let authUser = this.cookies.get('_u');
 		if(authUser){

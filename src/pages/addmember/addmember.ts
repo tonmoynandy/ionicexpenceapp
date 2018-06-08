@@ -20,7 +20,8 @@ export class AddmemberPage {
  	groupId : string = '';
  	member : any = {
  		id : '',
- 		name : ''
+ 		name : '',
+ 		deposit : 0
  	};
  	userList : any = [];
  	search : string = "";
@@ -34,10 +35,8 @@ export class AddmemberPage {
 
   searchMember()
   {
-  	if (this.search == '') {
-  		this.userList = [];
-  	}
-  	if (this.search.length > 0) {
+  	this.userList = [];
+  	if (this.search.length > 1) {
   		this.general.searchUser(this.search).subscribe(response =>{
         	this.userList = response;
 
@@ -49,6 +48,17 @@ export class AddmemberPage {
   	this.member.id = member.id;
   	this.member.name = this.search = member.name; 
   	this.userList=[];
+  }
+
+  onSaveMember()
+  {
+  	let postData = {
+		id : this.groupId,
+		user : this.member
+	};
+	this.general.addGroupMember(postData).subscribe((response)=>{
+		this.navCtrl.push(GroupdetailsPage,{"groupid":this.groupId});
+	})
   }
 
 }

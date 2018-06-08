@@ -25,8 +25,8 @@
 	  	<table class="table">
 	  		<tr>
 			  	<td class="text-center"><button ion-button  icon-only round (click)="openAddMemberModal()"> <ion-icon ios="ios-person-add" md="md-person-add"></ion-icon></button></td>
-			  	<td class="text-center"><button ion-button color="dark"  icon-only round><ion-icon ios="ios-pulse" md="md-pulse"></ion-icon></button></td>
-			  	<td class="text-center"><button ion-button color="danger"  icon-only round><ion-icon ios="ios-trash" md="md-trash"></ion-icon></button></td>
+			  	<td class="text-center"><button ion-button color="dark"  icon-only round (click)="goToStatistics()"><ion-icon ios="ios-pulse" md="md-pulse"></ion-icon></button></td>
+			  	<td class="text-center" *ngIf="authUser.id == adminUser.id"><button ion-button color="danger"  icon-only round (click)="deleteGroup()" ><ion-icon ios="ios-trash" md="md-trash"></ion-icon></button></td>
 		  	</tr>
 	  	</table>
 	  </ion-card-content>
@@ -72,15 +72,16 @@
 				<td style="width:50%">
 				<ion-fab  >
 					<span class="name-icon {{ i.name | slice : 0 :1  }}-icon" ion-fab mini>{{ i.name | slice : 0 :1  }}</span>
-				    <ion-fab-list side="top" >
+				    <ion-fab-list side="top"  *ngIf="authUser.id == adminUser.id">
 				      <button ion-fab class="red-text" (click)="deleteGroupUser(i.id)"><ion-icon name="trash"></ion-icon></button>
 				    </ion-fab-list>
 				    <ion-fab-list side="right" >
-				      <button ion-fab class="green-text" (click)="openDeposit(i.id)"><ion-icon name="cash"></ion-icon></button>
-				    </ion-fab-list>
-				    <ion-fab-list side="bottom" >
 				      <button ion-fab class="blue-text" (click)="openPay(i.id)"><ion-icon name="cash"></ion-icon></button>
 				    </ion-fab-list>
+				    <ion-fab-list side="bottom" *ngIf="authUser.id == adminUser.id">
+				      <button ion-fab class="green-text" (click)="openDeposit(i.id)"><ion-icon name="cash"></ion-icon></button>
+				    </ion-fab-list>
+				    
 				  </ion-fab>
 				  </td>
 			
