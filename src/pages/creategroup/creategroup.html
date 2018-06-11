@@ -36,8 +36,11 @@
 	  	</h4>
 	  	<table class="table">
 			<tr *ngFor="let m of group.members, let index = index">
-				<td><span class="name-icon {{ m.name | slice : 0 :1  }}-icon" ion-fab mini>{{ m.name | slice : 0 :1  }}</span></td>
-				<td>{{ m.name }} <ion-badge item-end *ngIf="m.admin==1">admin</ion-badge></td>
+				<td><span class="name-icon {{ m.name | slice : 0 :1  }}-icon" ion-fab mini (click)="setAsAdmin(index)">{{ m.name | slice : 0 :1  }}</span></td>
+				<td>
+					<p>{{ m.name }} <ion-badge item-end *ngIf="m.admin==1">admin</ion-badge></p>
+					<span>&#8377; {{m.deposit|number}}</span>
+				</td>
 				<td><ion-icon ios="ios-trash" md="md-trash" *ngIf="m.admin!=1" (click)="removeItem(index)"></ion-icon></td>
 			</tr>
 		</table>	

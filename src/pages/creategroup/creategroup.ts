@@ -33,7 +33,7 @@ export class CreategroupPage {
 				public alert : AlertController,
 				public modal: ModalController) {
 		this.authUser = this.global.loggedUser;
-
+		this.group.createdBy = this.authUser.id;
 	}
 
 	ionViewDidLoad() {
@@ -43,6 +43,42 @@ export class CreategroupPage {
 			admin : 1,
 			deposit : 0
 		});
+	}
+	setAsAdmin(index)
+	{
+		var adminIndex = this.group.members.findIndex(function(i){
+			return i.admin == 1;
+		})
+		if (this.group.members[index].deposit > 0) {
+			let alert = this.alert.create({
+			    title: 'Alert !',
+			    message: this.group.members[index].name+' have deposite amount, do you realy want to set as admin?',
+			    buttons: [
+			      {
+			        text: 'No',
+			        role: 'cancel',
+			        handler: () => {
+			          
+			        }
+			      },
+			      {
+			        text: 'Yes',
+			        handler: () => {
+			          	this.group.members[adminIndex].admin = 0;
+						this.group.members[index].admin = 1;
+						this.group.members[index].deposit = 0;
+			        }
+			      }
+			    ]
+			  });
+			  alert.present();
+		} else {
+			this.group.members[adminIndex].admin = 0;
+			this.group.members[index].admin = 1;
+			this.group.members[index].deposit = 0;
+		}
+		
+		
 	}
 	openAddMember()
 	{
@@ -60,6 +96,7 @@ export class CreategroupPage {
 
 	saveGroup()
 	{
+		
 		this.general.createGroup(this.group).subscribe((response)=>{
 			this.navCtrl.push(DashboardPage)
 		});

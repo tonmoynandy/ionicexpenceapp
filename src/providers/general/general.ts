@@ -91,4 +91,25 @@ export class GeneralProvider {
 	{
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/create-group', JSON.stringify(postData), this.httpOptions)
 	}
+
+	setAsAdmin(postData : object)
+	{
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/group-admin-set', JSON.stringify(postData), this.httpOptions)
+	}
+
+	checkUuidAvailable(uuid)
+	{
+		let postData = {
+			uuid : uuid
+		}
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/check-uuid', JSON.stringify(postData), this.httpOptions)
+	}
+	removeUuid(uuid)
+	{
+		let postData = {
+			uuid : uuid
+		}
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/remove-uuid', JSON.stringify(postData), this.httpOptions)
+	}
+
 }

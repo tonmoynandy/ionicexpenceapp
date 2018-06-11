@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Device } from '@ionic-native/device';
 import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
 import {GeneralProvider} from '../../providers/general/general';
 import { GroupdetailsPage } from '../groupdetails/groupdetails';
@@ -27,6 +28,7 @@ export class DashboardPage {
 		public menu : MenuController,
 		public general : GeneralProvider,
 		public global : Global,
+		private device: Device
 		) {
 	}
 	authuser : any = {};
@@ -63,6 +65,12 @@ export class DashboardPage {
 	goToLogout()
 	{
 		this.global.setLoggedUser({});
-		this.navCtrl.push(HomePage);
+		let uuid = this.device.uuid;
+		if(uuid!=null) {
+			this.general.removeUuid(uuid).subscribe((responseData)=>{
+				this.navCtrl.push(HomePage);
+			})
+		}
+		
 	}
 }

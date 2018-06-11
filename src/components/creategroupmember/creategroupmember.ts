@@ -23,7 +23,7 @@ export class CreategroupmemberComponent {
 		};
 	userList : any = [];
 	search : string = "";
-  constructor(private global : Global, private general : GeneralProvider, public viewCtrl: ViewController) {
+  constructor( private general : GeneralProvider, public viewCtrl: ViewController) {
     
   }
   searchMember()

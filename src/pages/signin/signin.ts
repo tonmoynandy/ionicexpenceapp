@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Device } from '@ionic-native/device';
 import { AlertController, LoadingController , IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Validators,  FormGroup, FormControl } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -18,11 +19,14 @@ export class SigninPage {
       public alertCtrl: AlertController,  
       private auth : AuthProvider,
       public loadingCtrl: LoadingController,
-      public global : Global
+      public global : Global,
+      private device: Device
       ) {
+    let uuid = this.device.uuid;
   		this.logData = new FormGroup({
 	    	phoneno : new FormControl('',[Validators.required,Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
-	    	password : new FormControl('',[Validators.required])
+	    	password : new FormControl('',[Validators.required]),
+        uuid : new FormControl(uuid)
 	    });
   }
 

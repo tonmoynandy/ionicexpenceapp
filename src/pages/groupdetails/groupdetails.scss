@@ -2,11 +2,17 @@ ion-fab-list{
 	top : -18px;
 }
 ion-fab-list[side=top] {
-    top: -120px;
+    top: -123px;
+    left: -4px;
 }
 ion-fab-list[side=bottom] {
     top: -43px;
+    left : -5px;
+
 }
 ion-fab-list[side=right] {
-    margin: 3px 30px;
+    margin: -24px 40px;
+}
+ion-fab-list[side=bottom-mid] {
+    margin: 20px 0 0 40px;
 }

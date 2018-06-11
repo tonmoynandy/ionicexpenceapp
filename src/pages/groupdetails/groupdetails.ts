@@ -16,7 +16,8 @@ export class GroupdetailsPage {
 	groupId : string ='';
 	groupDetails : object = {
 		name : '',
-		id : ''
+		id : '',
+		members : []
 	};
 	adminUser : any = {};
 	createdUser : any = {};
@@ -185,5 +186,72 @@ export class GroupdetailsPage {
 	goToStatistics()
 	{
 		this.navCtrl.push(StatisticsPage,{'groupid': this.groupId});
+	}
+
+	setAsAdmin(member)
+	{
+		if(member.deposit > 0) {
+			let alert = this.alert.create({
+			    title: 'Alert !',
+			    message: member.name + ' already have deposit amount, not able to set as admin.',
+			    buttons: [
+			      {
+			        text: 'OK',
+			        role: 'cancel',
+			        handler: () => {}
+			      }
+			    ]
+			  });
+			  alert.present();
+		} else {
+			let alert = this.alert.create({
+			    title: 'Alert !',
+			    message: 'Are you sure to set '+member.name+' as admin?',
+			    buttons: [
+			      {
+			        text: 'No',
+			        role: 'cancel',
+			        handler: () => {
+			          
+			        }
+			      },
+			      {
+			        text: 'Yes',
+			        handler: () => {
+			        	var memberList = this.groupDetails['members'];
+			        	console.log(memberList);
+			        	var mList = [];
+			        	for(let m of memberList) {
+			        		var row = {
+			        			id : m.id,
+			        			name : m.name,
+			        			deposit : parseFloat(m.deposit),
+			        			admin : 0,
+			        		};
+			        		if(m.admin == 1) {
+			        			row['admin'] = 0;
+			        		}
+			        		if(m.id == member.id) {
+			        			row['admin'] = 1;
+			        		}
+			        		mList.push(row);
+			        	}
+			        	var postData ={
+			        		groupId : this.groupId,
+			        		members : mList,
+			        		adminUser : {
+			        			id : member['id'],
+			        			name : member['name']
+			        		}
+			        	}
+			        	this.general.setAsAdmin(postData).subscribe(response => {
+			        		this.getGroupDetails();
+			        	})
+			        }
+			      }
+			    ]
+			  });
+			  alert.present();
+		}
 	}
 }
