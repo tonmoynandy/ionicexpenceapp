@@ -5,6 +5,7 @@ import {GeneralProvider} from '../../providers/general/general';
 import { GroupdetailsPage } from '../groupdetails/groupdetails';
 import { ChangepasswordPage } from '../changepassword/changepassword';
 import { CreategroupPage } from '../creategroup/creategroup';
+
 import { HomePage } from '../home/home';
 import {Global} from "../../app/global.config";
 /**
@@ -33,6 +34,16 @@ export class DashboardPage {
 	}
 	authuser : any = {};
 	groups : any = [];
+
+	doRefresh(refresher) {
+	    console.log('Begin async operation', refresher);
+
+	    setTimeout(() => {
+	      console.log('Async operation has ended');
+	      refresher.complete();
+	    }, 2000);
+	  }
+	  
 	ionViewDidLoad() {
 		if (Object.keys(this.global.loggedUser).length == 0 ) {
 			this.navCtrl.push(HomePage);

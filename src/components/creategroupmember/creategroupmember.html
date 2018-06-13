@@ -16,7 +16,7 @@
 		  </ion-item>
 		  <div class="auto-search-panel" *ngIf="userList.length > 0">
 		  	<ul>
-		  		<li *ngFor="let u of userList" (click)="selectMember(u)" >{{ u.name }}</li>
+		  		<li *ngFor="let u of userList" (click)="selectMember(u)" >{{ u.name }} <span class="gray-text right-float">{{ u.phoneno }}</span></li>
 		  	</ul>
 		  </div>
 		</ion-list>

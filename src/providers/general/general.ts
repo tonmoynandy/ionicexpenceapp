@@ -112,4 +112,10 @@ export class GeneralProvider {
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/remove-uuid', JSON.stringify(postData), this.httpOptions)
 	}
 
+	resetPassword(postData)
+	{
+
+		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/reset-password', JSON.stringify(postData), this.httpOptions)			
+	}
+
 }

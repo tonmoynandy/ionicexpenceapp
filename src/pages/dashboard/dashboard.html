@@ -23,13 +23,21 @@
 <ion-header>
 
   <ion-navbar hideBackButton>
-    <ion-title (click)="openMenu()"><ion-icon name="home"></ion-icon> Home</ion-title>
+    <ion-title (click)="openMenu()"><ion-icon name="menu"></ion-icon> Expence Manager</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+ <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
 	<ion-card *ngFor="let i of groups; let index = index">
 	  <ion-item>
 	  	<div style="float:left">

@@ -23,6 +23,7 @@ export class SigninPage {
       private device: Device
       ) {
     let uuid = this.device.uuid;
+    
   		this.logData = new FormGroup({
 	    	phoneno : new FormControl('',[Validators.required,Validators.maxLength(10), Validators.pattern('^[0-9]+$')]),
 	    	password : new FormControl('',[Validators.required]),

@@ -47,6 +47,15 @@ export class GroupdetailsPage {
 	  		})
 		})
 	}
+
+	doRefresh(refresher) {
+	    console.log('Begin async operation', refresher);
+	    this.getGroupDetails();
+	    setTimeout(() => {
+	      console.log('Async operation has ended');
+	      refresher.complete();
+	    }, 2000);
+	  }
 	openDeposit(memberId)
 	{
 		let member = this.groupDetails['members'].find((m)=>{

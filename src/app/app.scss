@@ -90,7 +90,9 @@ span.name-icon.Z-icon { background: #b53f4a }
 .blue-text {
     color: #478aff;
 }
-
+.gray-text {
+    color : #CCC;
+}
 .toolbar-background-md {
 	background : #478aff;
 }
@@ -141,7 +143,7 @@ span.name-icon.Z-icon { background: #b53f4a }
     margin:0;
 }
 .auto-search-panel ul li{
-    padding :15px 10px;
+    padding: 15px 29px 15px 15px;
     border-bottom:1px solid #CCC;
     display:block;
 }

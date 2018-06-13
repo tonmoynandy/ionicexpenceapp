@@ -25,6 +25,7 @@ export class AddmemberPage {
  	};
  	userList : any = [];
  	search : string = "";
+  errorMessage : string = '';
   constructor(public navCtrl: NavController, public navParams: NavParams, public global : Global, public general : GeneralProvider) {
   	this.groupId = this.navParams.get('groupid');
   }
@@ -57,7 +58,11 @@ export class AddmemberPage {
 		user : this.member
 	};
 	this.general.addGroupMember(postData).subscribe((response)=>{
-		this.navCtrl.push(GroupdetailsPage,{"groupid":this.groupId});
+    if(response['status'] && response['status'] == 0) {
+      this.errorMessage = response['message'];
+    } else {
+      this.navCtrl.push(GroupdetailsPage,{"groupid":this.groupId});
+    }
 	})
   }
 

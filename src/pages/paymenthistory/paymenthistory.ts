@@ -25,11 +25,11 @@ export class PaymenthistoryPage {
 
 			this.groupId = this.navParams.get('groupid');
 			this.authUser = this.global.loggedUser;
-			this.getHistory();
+			
 	}
 
 	ionViewDidLoad() {
-		
+		this.getHistory();
 	}
 	expenseList : any = [];
 	getHistory()
