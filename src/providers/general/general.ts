@@ -15,8 +15,7 @@ export class GeneralProvider {
 	{	
 		let postData = {
 			id : this.global.loggedUser['id']
-		}
-		//console.log(postData);		
+		}	
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/user-groups', JSON.stringify(postData), this.httpOptions)		
 	}
 
@@ -24,8 +23,7 @@ export class GeneralProvider {
 	{
 		let postData = {
 			id : id
-		}		
-		
+		}
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/groups-details', JSON.stringify(postData), this.httpOptions)		
 	}
 
@@ -39,7 +37,7 @@ export class GeneralProvider {
 		let postData = {
 			userId : userId,
 			groupId : groupId
-		}		
+		}	
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/delete-group-user', JSON.stringify(postData), this.httpOptions)			
 	}
 
@@ -52,7 +50,7 @@ export class GeneralProvider {
 	{
 		let postData = {
 			id : id
-		}		
+		}
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/group-expense-history', JSON.stringify(postData), this.httpOptions)		
 	}
 
@@ -60,7 +58,7 @@ export class GeneralProvider {
 	{
 		let postData = {
 			id : id
-		}		
+		}
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/delete-group-expense', JSON.stringify(postData), this.httpOptions)		
 	}
 
@@ -77,7 +75,7 @@ export class GeneralProvider {
 	{
 		let postData = {
 			id : id
-		}		
+		}
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/delete-group', JSON.stringify(postData), this.httpOptions)		
 	}
 	getStatistics(id) {
@@ -114,7 +112,6 @@ export class GeneralProvider {
 
 	resetPassword(postData)
 	{
-
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/reset-password', JSON.stringify(postData), this.httpOptions)			
 	}
 

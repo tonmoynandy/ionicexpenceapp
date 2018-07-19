@@ -62,6 +62,7 @@ export class DashboardPage {
 		this.navCtrl.push(GroupdetailsPage, {"groupid":id});
 	}
 	openMenu() {
+		console.log('openMenu');
 	   this.menu.open();
 	}
 
@@ -81,7 +82,10 @@ export class DashboardPage {
 			this.general.removeUuid(uuid).subscribe((responseData)=>{
 				this.navCtrl.push(HomePage);
 			})
+		} else {
+			this.navCtrl.push(HomePage);
 		}
+
 		
 	}
 }

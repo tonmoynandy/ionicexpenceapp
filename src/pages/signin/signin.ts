@@ -5,7 +5,7 @@ import {Validators,  FormGroup, FormControl } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Global } from '../../app/global.config';
 import {DashboardPage} from "../dashboard/dashboard";
-
+import {SignupPage} from "../signup/signup";
 @IonicPage()
 @Component({
   selector: 'page-signin',
@@ -54,6 +54,10 @@ export class SigninPage {
         	this.navCtrl.push(DashboardPage)
      	}
   	})
+  }
+  openSignUp()
+  {
+    this.navCtrl.push(SignupPage);
   }
 
 }

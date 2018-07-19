@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LandingPage } from '../pages/landing/landing';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
 import { DashboardPage } from '../pages/dashboard/dashboard';
@@ -25,6 +26,7 @@ import {Global} from './global.config';
   declarations: [
     MyApp,
     HomePage,
+    LandingPage,
     SigninPage,
     SignupPage,
     DashboardPage,
@@ -46,6 +48,7 @@ import {Global} from './global.config';
   entryComponents: [
     MyApp,
     HomePage,
+    LandingPage,
     SigninPage,
     SignupPage,
     DashboardPage,

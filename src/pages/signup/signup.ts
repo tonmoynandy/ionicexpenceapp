@@ -59,6 +59,9 @@ export class SignupPage {
   			}
   		})
   	}
-
+    openSignIn()
+    {
+      this.navCtrl.push(SigninPage);
+    }
 
 }
