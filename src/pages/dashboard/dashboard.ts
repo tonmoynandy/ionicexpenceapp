@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Device } from '@ionic-native/device';
-import { IonicPage, NavController, NavParams, LoadingController, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, MenuController ,ActionSheetController} from 'ionic-angular';
 import {GeneralProvider} from '../../providers/general/general';
 import { GroupdetailsPage } from '../groupdetails/groupdetails';
 import { ChangepasswordPage } from '../changepassword/changepassword';
@@ -26,6 +26,7 @@ export class DashboardPage {
 		public navCtrl: NavController, 
 		public navParams: NavParams, 
 		public loader : LoadingController,
+		public actCtrl : ActionSheetController,
 		public menu : MenuController,
 		public general : GeneralProvider,
 		public global : Global,
@@ -62,8 +63,33 @@ export class DashboardPage {
 		this.navCtrl.push(GroupdetailsPage, {"groupid":id});
 	}
 	openMenu() {
-		console.log('openMenu');
-	   this.menu.open();
+		var buttons = []; 
+		buttons.push({
+          text: 'Create Group',
+          handler: () => {
+            this.goToCreateGroup();
+          }
+        });
+        buttons.push({
+          text: 'Change Password',
+          handler: () => {
+            this.goToChangePassword();
+          }
+        });
+        buttons.push({
+          text: 'Logout',
+          handler: () => {
+            this.goToLogout();
+          }
+        });
+
+	
+	    const actionSheet = this.actCtrl.create({
+	      title: 'Action',
+	      buttons:buttons
+	    });
+	    actionSheet.present();
+	   //this.menu.open();
 	}
 
 	goToCreateGroup()

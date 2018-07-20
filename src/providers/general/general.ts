@@ -115,4 +115,8 @@ export class GeneralProvider {
 		return this.http.post(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/reset-password', JSON.stringify(postData), this.httpOptions)			
 	}
 
+	downloadFile(groupId)
+	{
+		return this.http.get(this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/export-report/'+groupId);	
+	}
 }

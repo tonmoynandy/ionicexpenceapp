@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, MenuController, ActionSheetController } from 'ionic-angular';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+
 import {GeneralProvider} from '../../providers/general/general';
 import {Global} from "../../app/global.config";
 import {PaymentPage} from '../payment/payment'
@@ -24,6 +27,10 @@ export class GroupdetailsPage {
 	authUser : any = {};
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
+				public menuCtrl : MenuController,
+				private transfer: FileTransfer, 
+				private file: File,
+				public actionSheetCtrl: ActionSheetController,
 				public global:Global, 
 				public general : GeneralProvider, 
 				public alert : AlertController) {
@@ -31,6 +38,10 @@ export class GroupdetailsPage {
 		this.authUser = this.global.loggedUser;
 		
 		
+	}
+	openMenu() {
+	   this.menuCtrl.enable(true, 'details-menu'); 
+	   this.menuCtrl.toggle();
 	}
 	getGroupDetails()
 	{
@@ -99,7 +110,12 @@ export class GroupdetailsPage {
 	  });
 	  alert.present();
 	}
-
+	goToHome()
+	{
+		this.menuCtrl.enable(false, 'details-menu'); 
+		this.menuCtrl.enable(true, 'dashboard-menu'); 
+		this.navCtrl.push(DashboardPage);
+	}
 	deleteGroupUser(memberId)
 	{
 		let member = this.groupDetails['members'].find((m)=>{
@@ -194,6 +210,7 @@ export class GroupdetailsPage {
 
 	goToStatistics()
 	{
+		this.menuCtrl.enable(true, 'dashboard-menu'); 
 		this.navCtrl.push(StatisticsPage,{'groupid': this.groupId});
 	}
 
@@ -262,5 +279,68 @@ export class GroupdetailsPage {
 			  });
 			  alert.present();
 		}
+	}
+
+	exportGroup()
+	{
+		this.general.downloadFile(this.groupId).subscribe(data => {
+			if (data['status'] == 1) {
+				const fileTransfer: FileTransferObject = this.transfer.create();
+				const pdfUrl = this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/'+this.groupId+'.pdf';
+				  fileTransfer.download(pdfUrl, this.file.dataDirectory + 'file.pdf').then((entry) => {
+				    console.log('download complete: ' + entry.toURL());
+				  }, (error) => {
+				    // handle error
+				  });
+				
+			}
+		})
+	}
+	presentActionSheet(user) {
+		var buttons = []; 
+		buttons.push({
+	          text: 'Pay',
+	          handler: () => {
+	            this.openPay(user.id);
+	          }
+	        });
+		if (this.authUser.id == this.adminUser.id && user.id != this.adminUser.id && user.deposit == 0) {
+			buttons.push({
+	          text: 'Set Admin',
+	          handler: () => {
+	            this.setAsAdmin(user.id)
+	          }
+	        })
+		}
+		if (this.authUser.id == this.adminUser.id && user.id != this.adminUser.id) {
+			buttons.push({
+	          text: 'Deposit',
+	          handler: () => {
+	            this.openDeposit(user.id);
+	          }
+	        })
+		}
+		if (this.authUser.id == this.adminUser.id && user.id != this.adminUser.id) {
+			buttons.push({
+	          text: 'Delete',
+	          handler: () => {
+	            this.deleteGroupUser(user.id)
+	          }
+	        });
+		}
+	    const actionSheet = this.actionSheetCtrl.create({
+	      title: 'Action',
+	      buttons:buttons
+	    });
+	    actionSheet.present();
+	  }
+	openDetails(user) {
+	
+		let alert = this.alert.create({
+	    title: user.name,
+	    message: "<p>Deposit : &#8377;"+ user.deposit+"</p><p>Pay Share : &#8377;"+user.paidFor+"</p><p>Pay : &#8377;"+user.paidBy+"</p><p>Balance : &#8377;"+user.balance+"</p>",
+	   
+	  });
+	  alert.present();
 	}
 }

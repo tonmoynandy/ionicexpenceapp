@@ -33,8 +33,10 @@
 	  <ion-card-content>
 	  	<table class="table">
 	  		<tr>
+	  			<td class="text-center" ><button ion-button color="primary"  icon-only round (click)="goToHome()" ><ion-icon name="home"></ion-icon></button></td>
 			  	<td class="text-center"><button ion-button  icon-only round (click)="openAddMemberModal()"> <ion-icon ios="ios-person-add" md="md-person-add"></ion-icon></button></td>
 			  	<td class="text-center"><button ion-button color="dark"  icon-only round (click)="goToStatistics()"><ion-icon ios="ios-pulse" md="md-pulse"></ion-icon></button></td>
+			  	<td class="text-center" ><button ion-button color="primary"  icon-only round (click)="exportGroup()" ><ion-icon name="paper"></ion-icon></button></td>
 			  	<td class="text-center" *ngIf="authUser.id == adminUser.id"><button ion-button color="danger"  icon-only round (click)="deleteGroup()" ><ion-icon ios="ios-trash" md="md-trash"></ion-icon></button></td>
 		  	</tr>
 	  	</table>
@@ -78,23 +80,23 @@
 	  <ion-card-content>
 	    <table class="table" cellspacing="0">
 			<tr *ngFor="let i of groupDetails.members; let index = index"  >
-				<td style="width:50%" class="text-center"><span class="name-icon {{ i.name | slice : 0 :1  }}-icon" ion-fab mini>{{ i.name | slice : 0 :1  }}</span>
+				<td  class="text-center">
+				<span (click)="openDetails(i)" class="name-icon {{ i.name | slice : 0 :1  }}-icon" ion-fab mini>{{ i.name | slice : 0 :1  }}</span>
 				<div class="text-bold">{{ i.name }} <span class="admin-span" *ngIf="i.admin==1">admin</span></div>
-				<div>
-					 <ion-badge item-end *ngIf="authUser.id == adminUser.id && i.id != adminUser.id && i.deposit == 0" (click)="setAsAdmin(i)"> <ion-icon ios="ios-person" md="md-person"></ion-icon> Set Admin</ion-badge>
-					 <ion-badge item-end  (click)="openPay(i.id)"> <ion-icon name="cash"></ion-icon> Pay</ion-badge>
-					 <ion-badge item-end *ngIf="authUser.id == adminUser.id && i.id != adminUser.id" (click)="openDeposit(i.id)"> <ion-icon name="cash"></ion-icon> Deposit</ion-badge>
-					 <ion-badge item-end class="red-badge" *ngIf="authUser.id == adminUser.id && i.id != adminUser.id" (click)="deleteGroupUser(i.id)"> <ion-icon name="trash"></ion-icon> Delete</ion-badge>
-				</div>
+
+				
 				</td>
 			
 				<td>
-					
-					<div><label>Deposit : </label> &#8377; {{ i.deposit  }}</div>
 					<div><label>Pay : </label> &#8377; {{ i.paidBy }}</div>
-					<div><label>Pay Share: </label> &#8377; {{ i.paidFor }}</div>
 					<div><label>Balance : </label><span [ngClass]="{ 'red-text':i.balance < 0 ,'green-text': i.balance > 0 }">&#8377; {{ i.balance  }}</span></div>
 					
+				</td>
+				<td>
+					<div>
+						<ion-badge item-end  (click)="presentActionSheet(i)"> Details</ion-badge>
+						
+					</div>
 				</td>
 				
 			</tr>

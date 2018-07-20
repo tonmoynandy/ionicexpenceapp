@@ -5,6 +5,9 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LandingPage } from '../pages/landing/landing';
@@ -68,7 +71,9 @@ import {Global} from './global.config';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     GeneralProvider,
-    Device
+    Device,
+    FileTransfer, 
+    File
   ]
 
 })
