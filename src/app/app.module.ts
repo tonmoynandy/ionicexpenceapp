@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -73,7 +74,8 @@ import {Global} from './global.config';
     GeneralProvider,
     Device,
     FileTransfer, 
-    File
+    File,
+    Diagnostic
   ]
 
 })

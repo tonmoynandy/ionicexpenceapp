@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, MenuController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, MenuController, ActionSheetController, LoadingController } from 'ionic-angular';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { Diagnostic } from '@ionic-native/diagnostic';
 
 import {GeneralProvider} from '../../providers/general/general';
 import {Global} from "../../app/global.config";
@@ -33,7 +34,9 @@ export class GroupdetailsPage {
 				public actionSheetCtrl: ActionSheetController,
 				public global:Global, 
 				public general : GeneralProvider, 
-				public alert : AlertController) {
+				public alert : AlertController,
+				public loader : LoadingController,
+				private diagnostic: Diagnostic) {
 		this.groupId = this.navParams.get('groupid');
 		this.authUser = this.global.loggedUser;
 		
@@ -166,11 +169,54 @@ export class GroupdetailsPage {
 	menu : boolean = false;
 	menuToggle()
 	{
-		if (this.menu == true) {
+		var buttons = [];
+		buttons.push({
+          text: 'Home',
+          handler: () => {
+            this.goToHome();
+          }
+        });
+        buttons.push({
+			text: 'Add Member',
+			handler: () => {
+				this.openAddMemberModal();
+			}
+        	
+        });
+        buttons.push({
+			text: 'Statistics',
+			handler: () => {
+				this.goToStatistics();
+			}
+        	
+        })
+        buttons.push({
+			text: 'Export',
+			handler: () => {
+				this.exportGroup();
+			}
+        	
+        })
+        if (this.authUser.id == this.adminUser.id) {
+            buttons.push({
+    			text: 'Delete',
+    			handler: () => {
+    				this.deleteGroup();
+    			}
+            	
+            })
+        }
+		
+	    const actionSheet = this.actionSheetCtrl.create({
+	      title: 'Action',
+	      buttons:buttons
+	    });
+	    actionSheet.present();
+		/*if (this.menu == true) {
 			this.menu = false;
 		} else {
 			this.menu = true;
-		}
+		}*/
 	}
 
 	openAddMemberModal()
@@ -283,18 +329,43 @@ export class GroupdetailsPage {
 
 	exportGroup()
 	{
-		this.general.downloadFile(this.groupId).subscribe(data => {
-			if (data['status'] == 1) {
-				const fileTransfer: FileTransferObject = this.transfer.create();
-				const pdfUrl = this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/'+this.groupId+'.pdf';
-				  fileTransfer.download(pdfUrl, this.file.dataDirectory + 'file.pdf').then((entry) => {
-				    console.log('download complete: ' + entry.toURL());
-				  }, (error) => {
-				    // handle error
-				  });
-				
-			}
-		})
+		this.diagnostic.requestExternalStorageAuthorization().then(()=>{
+		//User gave permission 
+			let loaderElement = this.loader.create({
+		      content: "Downloading...",
+		    });
+		    loaderElement.present();
+			this.general.downloadFile(this.groupId).subscribe(data => {
+				if (data['status'] == 1) {
+					
+					const fileTransfer: FileTransferObject = this.transfer.create();
+					const pdfUrl = this.global.API_URL+'/'+this.global.APPLICATION_NAME+'/'+this.groupId+'.pdf';
+					  fileTransfer.download(pdfUrl, this.file.externalRootDirectory + 'Download/'+this.groupId+'.pdf', true).then((entry) => {
+					    let alert = this.alert.create({
+							title : 'Success!',
+							message : 'Download completed. Open  Local >> Internal Storage >> Download to get the exported file'
+						});
+						 alert.present();
+						 loaderElement.dismiss();
+					   // console.log('download complete: ' + entry.toURL());
+					  }, (error) => {
+					    // handle error
+					    let alert = this.alert.create({
+							title : 'Error Download Alert',
+							message :  error.json()
+						});
+						 alert.present();
+					  });
+					
+				}
+			})
+		}).catch(error=>{
+			let alert = this.alert.create({
+					title : 'Error Permission Alert',
+					message :  error.json()
+				});
+			alert.present();
+		});
 	}
 	presentActionSheet(user) {
 		var buttons = []; 
